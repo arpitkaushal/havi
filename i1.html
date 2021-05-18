@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <form class="form-horizontal">
+      <fieldset>
+        <!-- Form Name -->
+        <legend>Form Name</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Name</label>
+          <div class="col-md-4">
+            <input
+              id="textinput"
+              name="textinput"
+              type="text"
+              placeholder="Yatin Jain"
+              class="form-control input-md"
+            />
+            <span class="help-block">As on Government IDs</span>
+          </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="passwordinput"
+            >Password</label
+          >
+          <div class="col-md-4">
+            <input
+              id="passwordinput"
+              name="passwordinput"
+              type="password"
+              placeholder="Enter a strong password."
+              class="form-control input-md"
+            />
+            <span class="help-block"
+              >Make sure it has both alphabets and numbers.</span
+            >
+          </div>
+        </div>
+
+        <!-- Multiple Radios (inline) -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="radios"
+            >Rate your Experience</label
+          >
+          <div class="col-md-4">
+            <label class="radio-inline" for="radios-0">
+              <input
+                type="radio"
+                name="radios"
+                id="radios-0"
+                value="1"
+                checked="checked"
+              />
+              1
+            </label>
+            <label class="radio-inline" for="radios-1">
+              <input type="radio" name="radios" id="radios-1" value="2" />
+              2
+            </label>
+            <label class="radio-inline" for="radios-2">
+              <input type="radio" name="radios" id="radios-2" value="3" />
+              3
+            </label>
+            <label class="radio-inline" for="radios-3">
+              <input type="radio" name="radios" id="radios-3" value="4" />
+              4
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </body>
+</html>
