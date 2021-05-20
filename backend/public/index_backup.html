@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Client Data</title>
+  </head>
+  <body>
+    <h1>Please fill data in the form below:</h1>
+    <form
+      method="POST"
+      action="http://localhost:8080/apply/"
+      enctype="multipart/form-data"
+    >
+      <label>Email:<input type="text" name="clientEmail" required /></label>
+      <br />
+      <label>Name:<input type="text" name="clientName" required /></label>
+      <br />
+      <!-- <label>Screenshot:<br><textarea name="clientImage"></label> -->
+      <!-- <br /> -->
+      <!-- <label>Screenshot:<input type="file" name="clientImage" /></label>
+      <br /> -->
+      <label>Comment:<br /><textarea name="clientComment"></textarea></label>
+      <br />
+      <input type="submit" value="Apply" />
+    </form>
+    <!-- <a href="/view-feedbacks">View feedbacks</a> We don't need this because only admin should see other responses-->
+  </body>
+</html>

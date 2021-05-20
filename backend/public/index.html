@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Candidate Data</title>
+</head>
+<body>
+    <h1>Please fill data in the form below:</h1>
+    <form method="POST" action="http://localhost:8080/apply/"  enctype="multipart/form-data">
+        
+        <label for="candidateName">Name : </label>
+        <input type="text" name="candidateName" required>
+        <br><br>
+        
+        <label for="candidateEmail">Email : </label>
+        <input type="text" name="candidateEmail" required>
+        <br><br>
+
+        <label for="candidateComment">Comment : </label><br>
+        <textarea name="candidateComment"></textarea>
+        <br><br>
+        
+        
+        <label for="candidateImage">Upload your recent image</label>
+        <input type="file" name="candidateImage">
+        <br><br>
+        
+        <label for="candidateResume">Upload your Resume</label>
+        <input type="file" name="candidateResume">
+        <br><br>
+
+        <input type="submit" value="Apply">
+    </form>
+    <!-- <a href="/view-feedbacks">View feedbacks</a> We don't need this because only admin should see other responses-->
+</body>
+</html>

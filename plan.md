@@ -79,8 +79,61 @@ Modeling it like a portal for applying to a position.
  
 
 
+# image upload without iframe
 
-axios.get and axios.post - for get and post, api endpoints 
 
-create 
+# image upload + iframe
+
+## option 1 
+
+  use third party api (google drive or imgur) for image
+  something for pdf as well
+
+
+## option 2
+
+actually embed the react/node app with the form itself.
+
+now with this i gotta know what exactly are the steps involved in uploading the file. there has to be some server somewhere yes, but is it fine to just have the necessary commands 
+
+my doubt in precise terms -> 
+kisi normal webpage pe hamara form pada hua hai, ab usne miage upload karvayi,
+ab ye saara data hume apne server pe receive karna hai, 
+ab normal data (text and unicode ye sab cheeze) to aaram se json me chali jaati hai 
+but images and pdf ko kaise handle kare? 
+
+
+
+OKAY to abhi kya kare?
+
+aisa karte hai simple html form se data send karke dekhte hai node par ki hota kya hai aakhir? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
