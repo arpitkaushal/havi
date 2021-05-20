@@ -8,6 +8,44 @@ const axios = require("axios");
 const mongoose = require("mongoose"); //manages DB connection
 const Candidate = require("./models/Candidate");
 
+// multer and storing to database
+const multer = require("multer");
+// const upload = multer({storage: multer.memoryStorage() });
+const GridFsStorage = require("multer-gridfs-storage");
+const Grid = require("gridfs-stream");
+
+// Create mongo connection
+const conn = mongoose.createConnection(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
+
+// Init gfs
+let gfs;
+
+conn.once("open", () => {
+  // Init stream
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection("uploads");
+});
+
+// Create storage engine
+const storage = new GridFsStorage({
+  url: process.env.MONGO_URI,
+  file: (req, file) => {
+    return {
+      filename: file.originalname,
+      bucketName: "uploads",
+    };
+  },
+  // file: {
+  //   filename: candidateImage.name,
+  //   bucketName: "uploads",
+  // },
+});
+const upload = multer({ storage });
+
 // selecting port, establishing connection
 app.listen(process.env.Port, () => {
   console.log(`Application running at http://localhost:${process.env.PORT}`);
@@ -37,28 +75,35 @@ app.get("/", (req, res) => {
   res.send("<h1>Hi You are awesome, and you'll complete this in time.</h1>");
 });
 
-app.post("/apply", async (req, res) => {
-  console.log(req);
+// app.post("/apply", upload.single("candidateImage"), async (req, res) => {
+app.post("/apply", upload.fields([{name:'candidateImage'},{name:'candidateResume'}]), async (req, res) => {
+  // console.log(req.body);
+  // console.log(req.files);
+  // console.log(req.files[0]);
+  // console.log(req.files[1]);
+
   try {
     const candidate = new Candidate({
-      email: req.body.clientEmail,
-      name: req.body.clientName,
-      comment: req.body.clientComment,
-      // photo: req.body.clientImage,
+      email: req.body.candidateEmail,
+      name: req.body.candidateName,
+      comment: req.body.candidateComment,
+      photo: req.files.candidateImage.buffer,
+      resume: req.files.candidateResume.buffer,
     });
+    console.log(candidate);
     await candidate.save();
 
-    // const registerCandidate = await candidate.save();
-    console.log(req.body);
     res
       .status(200)
       .send(
-        `Hi ${req.body.clientName} (${req.body.clientEmail}). You commented ${req.body.clientComment}. Thanks.`
+        `Hi ${req.body.candidateName} (${req.body.candidateEmail}). You commented ${req.body.candidateComment}. Thanks.`
       );
   } catch (error) {
     console.log(`Error in posting the said data: ${error}`);
     res.status(400).send(error);
   }
+
+  // res.send("You are awesome!");
 });
 
 // app.get("/apply", (req, res) => {

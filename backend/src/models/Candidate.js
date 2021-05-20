@@ -15,10 +15,14 @@ const candidateSchema = new mongoose.Schema({
     //     type:String,
     //     required:true
     // },
-    // photo:{
-    //     type:Buffer,
-    //     contenType:String
-    // },
+    photo:{
+        data:Buffer,
+        contentType:String
+    },
+    resume:{
+        data:Buffer,
+        contentType:String
+    },
     comment: {
         type:String,
         required:true
