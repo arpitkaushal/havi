@@ -1,10 +1,26 @@
+require("dotenv").config(); // to load variables to process.env
+
+// Intialize the app and other setup
 const express = require("express");
 const app = express();
 
-require("dotenv").config(); // to load variables to process.env
+// serving the static website - in our case the form
 const path = require("path");
-const bodyParser = require("body-parser"); // json not parsed by default in express, so json data cannot be shown in the terminal without this
-const axios = require("axios");
+const static_path = path.join(__dirname, "../public/");
+console.log(static_path);
+app.use(express.static(static_path));
+
+// selecting port, establishing connection
+app.listen(process.env.Port, () => {
+  console.log(`Application running at http://localhost:${process.env.PORT}`);
+});
+
+// for processing JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+
+// DATA
 const mongoose = require("mongoose"); //manages DB connection
 const Candidate = require("./models/Candidate");
 
@@ -39,17 +55,10 @@ const storage = new GridFsStorage({
       bucketName: "uploads",
     };
   },
-  // file: {
-  //   filename: candidateImage.name,
-  //   bucketName: "uploads",
-  // },
 });
 const upload = multer({ storage });
 
-// selecting port, establishing connection
-app.listen(process.env.Port, () => {
-  console.log(`Application running at http://localhost:${process.env.PORT}`);
-});
+
 
 // making a connection to the database
 mongoose
@@ -61,18 +70,11 @@ mongoose
   .then(() => console.log("DB Connected")) // if successful
   .catch((e) => console.log(`DB connection Error: ${e}`)); // if not successful
 
-// serving the static website - in our case the form
-const static_path = path.join(__dirname, "../public/");
-console.log(static_path);
-app.use(express.static(static_path));
-
-// for JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//
 
 // get requests to the root - this will be the entry point to our app for the admin
 app.get("/", (req, res) => {
-  res.send("<h1>Hi You are awesome, and you'll complete this in time.</h1>");
+  res.send("Awesome!");
 });
 
 // app.post("/apply", upload.single("candidateImage"), async (req, res) => {
@@ -106,27 +108,23 @@ app.post("/apply", upload.fields([{name:'candidateImage'},{name:'candidateResume
   // res.send("You are awesome!");
 });
 
-// app.get("/apply", (req, res) => {
-//     // res.send("<h1>Hi You are awesome, and you'll complete this in time.</h1>");
-//     res.render("index");
-// });
 
 // archive
-
-// mongoDV default code
-// const mongodb = require("mongodb");
-/*
-    // mongoDB client code
-    const MongoClient = mongodb.MongoClient;
-    const uri = process.env.MONGO_URI;
-    const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    });
-    client.connect((err) => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    client.close();
-    console.log(`Error in conencting with Mongo\n${err}`);
-    });
-*/
+/**
+ * Videos - 
+    * Very Conscise - https://www.youtube.com/watch?v=l8aGNhOD91k
+    * https://www.youtube.com/watch?v=gQ5ou0G_frw - In Hindi
+    * Traversy Media - https://www.youtube.com/watch?v=3f5Q9wDePzY
+ * https://www.npmjs.com/package/multer-gridfs-storage
+ * https://stackoverflow.com/questions/15772394/how-to-upload-display-and-save-images-using-node-js-and-express
+ * apparently really simple way to upload - https://stackoverflow.com/questions/36428698/how-to-upload-the-file-and-store-it-in-mongodb-using-node-js
+ * Embedding a React Application in an HTML page - https://medium.com/m/global-identity?redirectUrl=https%3A%2F%2Fbetterprogramming.pub%2Fhow-to-embed-a-react-application-on-any-website-1bee1d15617f
+ * Tutorials BLog
+    * Answer to uploading files on mongo - https://stackoverflow.com/questions/34576507/storing-a-file-into-mongodb-using-multer-in-mongoose
+    * Upload File via MERN Stack - https://dev.to/ibrahimshamma99/upload-file-via-mern-stack-rocket-528l
+    * AJAX SCript to show pictures preview - https://bezkoder.com/node-js-upload-store-images-mongodb/
+    * Upload and Retrieve Files - https://medium.com/@kavitanambissan/uploading-and-retrieving-a-file-from-gridfs-using-multer-958dfc9255e8
+    * Uploading form fields + files (Type Script) - https://medium.com/developer-rants/uploading-form-fields-and-files-at-the-same-time-with-multer-node-js-typescript-c1a367eb8198
+    * Upload Image using MERN Stack - https://dev.to/yosraskhiri/how-to-upload-an-image-using-mern-stack-1j95
+ * Monggose connect() vs connection()
+ */
